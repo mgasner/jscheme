@@ -228,7 +228,7 @@ var evaluate = function (x) {
 };
 
 var pretty_print = function (val) {
-  if (isAutoQuoting(val)) {
+  if (typeof val !== "undefined" && isAutoQuoting(val)) {
     return val;
   } else return "ok";
 }
