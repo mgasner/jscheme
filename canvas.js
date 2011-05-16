@@ -1,5 +1,4 @@
 // ctx.save()
-// ctx.restore()
 // ctx.scale(x, y)
 // ctx.rotate(theta)
 // ctx.translate(x, y)
@@ -16,7 +15,7 @@
 
 (function () {
   
-  var getctx(id) = function {
+  var getctx = function (id) {
     return document.getElementById(id).getContext("2d");
   }
   
