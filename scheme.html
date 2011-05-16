@@ -1,0 +1,21 @@
+<html>
+<head>
+</head>
+<body>
+<div id="print"></div>
+<input id="repl" type="text" size=100 />
+<script type="text/javascript" src="scheme.js"></script>
+<script type="text/javascript" src="jquery-1.5.1.js"></script>
+<script type="text/javascript">
+$('#repl').change(
+  function () {
+    expr = $('#repl').val();
+    $('#print').append('<br /><span style="color: red">' + expr + '</span>');
+    var start = new Date();
+    $('#print').append("<br />" + evaluate(read(expr)));
+    var end = new Date();
+    $('#print').append('<br /><span style="font-size: x-small; color: #cccccc">' + (end - start) + '</span>');
+  });
+</script>
+</body>
+</html>
