@@ -8,6 +8,14 @@ var isSymbol = function (x) {
   return x.hasOwnProperty("symbol");
 }
 
+var isNumber = function (x) {
+  return (! isNaN(parseFloat(x)));
+}
+
+var isInteger = function (x) {
+  return (parseInt(x) === parseFloat(x));
+}
+
 var Environment = [{}];
 
 var update = function (env, pairs) {
@@ -181,8 +189,10 @@ var read_from = function (tokens) {
 }
 
 var atom = function (token) {
-  if (! (isNaN(parseFloat(token)))) {
-    return parseFloat(token);
+  if (isNumber(token)) {
+    if (isInteger(token)) {
+      return parseInt(token);
+    } else return parseFloat(token);
   } else {
     return Symbol(token);
   }
