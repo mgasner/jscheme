@@ -50,6 +50,10 @@ var isCond = function (x) {
   return (x[0].name === "cond");
 }
 
+var isLet = function (x) {
+  return (x[0].name === "let");
+}
+
 var Environment = [{}];
 
 var update = function (env, pairs) {
@@ -152,7 +156,6 @@ var evaluate = function (x) {
         } else {
           var variable = x[1].shift()
           var expr = [Symbol("lambda"), x[1], x[2]]
-          console.log(to_sexp(expr));
           push_environment();
           var val = evaluate(expr);
           pop_environment();
@@ -187,6 +190,15 @@ var evaluate = function (x) {
           var expr = [Symbol("if"), x[1][0], x[1][1], evaluate([Symbol("cond"), x.slice(2)])];
           return evaluate(expr);
         }
+    } else if (isLet(x)) {
+        if (x[1].length === 1) {
+          var expr = [[Symbol("lambda"), [x[1][0][0]], x[2]], x[1][0][1]];
+          return evaluate(expr);
+        } else {
+          var expr = [[Symbol("lambda"), [ x[1][0][0] ], [Symbol("let"), x[1].slice(1), x[2]]], x[1][0][1]];
+          return evaluate(expr);
+        }
+        
     } else {
         var exps = [];
         push_environment();
