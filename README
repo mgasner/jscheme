@@ -1,0 +1,3 @@
+This is an exceedingly naïve "teach yourself to program in fixnum days" kind of exercise. The goal is to write first an in-browser REPL for R5RS Scheme and then a compiler from R5RS to JavaScript.
+
+The initial, horrific fumbling stages have been omitted.
