@@ -5,6 +5,7 @@ body {
 #print {
   width: 700px;
   border: 1px brown dotted;
+  float: left;
 }
 #repl {
   width: 700px;
