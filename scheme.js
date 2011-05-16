@@ -1,5 +1,6 @@
 var env = 0,
     verbosity = 0;
+    
 var Symbol = function (name) {
   return { symbol: true, name: name };
 }
@@ -57,8 +58,6 @@ var zip = function (keys, values) {
   
   return zipped;
 }
-
-bind_primitives();
 
 var to_sexp = function (x) {
   if (! (x instanceof Array)) {
@@ -140,7 +139,7 @@ var evaluate = function (x) {
         var exps = [];
         push_environment();
         for (var i = 0, len = x.length; i < len; i++) {
-            exps[i] = evaluate(x[i], env + 1);
+            exps[i] = evaluate(x[i]);
         };
         var proc = exps[0];
         var val = proc.apply(this, exps.slice(1));
@@ -197,3 +196,5 @@ var atom = function (token) {
     return Symbol(token);
   }
 }
+
+bind_primitives();

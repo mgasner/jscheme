@@ -39,7 +39,9 @@ var primitive_lt = function (x, y) {
 }
 
 var primitive_eq = function (x, y) {
-  return (x === y);
+  if (isSymbol(x) && isSymbol(y)) {
+    return (x.name === y.name);
+  } else return (x === y);
 }
 
 var primitive_cons = function (x, y) {
@@ -54,22 +56,44 @@ var primitive_cdr = function (x) {
   return x(false);
 }
 
+var primitive_quotient = function (x, y) {
+  return Math.floor(x / y);
+}
+
+var primitive_remainder = function (x, y) {
+  return x % y;
+}
+
+var primitive_or = function () {
+  for (var i = 0, len = arguments.length; i < len; i++) {
+    if (arguments[i]) return true;
+  }
+  return false;
+}
 var pi = function () {
   return Math.PI;
 }
 
 var bind_primitives = function() {
   update(0, {
-   "+": primitive_add,
-   "-": primitive_sub,
-   "*": primitive_mult,
-   "/": primitive_div,
-   ">": primitive_gt,
-   "<": primitive_lt,
-   "cons": primitive_cons,
-   "car": primitive_car,
-   "cdr": primitive_cdr,
-   "pi": pi,
-   "eq": primitive_eq
+   "+":           primitive_add,
+   "-":           primitive_sub,
+   "*":           primitive_mult,
+   "/":           primitive_div,
+   ">":           primitive_gt,
+   "<":           primitive_lt,
+   "cons":        primitive_cons,
+   "car":         primitive_car,
+   "cdr":         primitive_cdr,
+   "pi":          pi,
+   "eq":          primitive_eq,
+   "quotient":    primitive_quotient,
+   "remainder":   primitive_remainder,
+   "or":          primitive_or
   });
+  
+  evaluate(read_from(tokenize("(define zero? (lambda (x) (eq x 0)))")));
+  evaluate(read_from(tokenize("(define positive? (lambda (x) (> x 0)))")));
+  evaluate(read_from(tokenize("(define negative? (lambda (x) (< x 0)))")));
+  //evaluate(read_from(tokenize("")));
 }
