@@ -25,6 +25,10 @@ var isInteger = function (x) {
   return (parseInt(x) === parseFloat(x));
 }
 
+var isString = function (x) {
+  return ((typeof x !== undefined) && x.toUpperCase);
+}
+
 var isQuote = function (x) {
   return (x[0].name === "quote");
 }
@@ -124,7 +128,7 @@ var evaluate = function (x) {
     if (env === undefined) {
       env = 0;
     }
-    
+        
     if (env === 0) {
       Environment = new Array(Environment[0]);
     }
@@ -228,7 +232,8 @@ var evaluate = function (x) {
 };
 
 var pretty_print = function (val) {
-  if (typeof val !== "undefined" && isAutoQuoting(val)) {
+  console.log(val);
+  if (typeof val !== "undefined" && (isAutoQuoting(val) || isString(val))) {
     return val;
   } else return "ok";
 }
@@ -276,6 +281,8 @@ var atom = function (token) {
     if (isInteger(token)) {
       return parseInt(token);
     } else return parseFloat(token);
+  } else if (token[0] === "'") {
+    return [Symbol("quote"), Symbol(token.slice(1))];
   } else {
     return Symbol(token);
   }
