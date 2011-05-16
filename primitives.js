@@ -78,6 +78,10 @@ var primitive_and = function () {
   return true;
 }
 
+var primitive_not = function (x) {
+  return (! x);
+}
+
 var pi = function () {
   return Math.PI;
 }
@@ -98,12 +102,12 @@ var bind_primitives = function() {
    "quotient":    primitive_quotient,
    "remainder":   primitive_remainder,
    "or":          primitive_or,
-   "and":         primitive_and
+   "and":         primitive_and,
+   "not":         primitive_not
   });
   
   evaluate(read_from(tokenize("(define zero? (lambda (x) (eq x 0)))")));
   evaluate(read_from(tokenize("(define positive? (lambda (x) (> x 0)))")));
   evaluate(read_from(tokenize("(define negative? (lambda (x) (< x 0)))")));
-  evaluate(read_from(tokenize("(define >= (lambda (x y) (or (> x y) (eq x y))))")));
   evaluate(read_from(tokenize("(define >= (lambda (x y) (or (> x y) (eq x y))))")));
 }
