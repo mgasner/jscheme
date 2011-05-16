@@ -17,6 +17,30 @@ var isInteger = function (x) {
   return (parseInt(x) === parseFloat(x));
 }
 
+var isQuote = function (x) {
+  return (x[0].name === "quote");
+}
+
+var isIf = function (x) {
+  return (x[0].name === "if");
+}
+
+var isSet = function (x) {
+  return (x[0].name === "set!");
+}
+
+var isDef = function (x) {
+  return (x[0].name === "define");
+}
+
+var isLambda = function (x) {
+  return (x[0].name === "lambda");
+}
+
+var isBegin = function (x) {
+  return (x[0].name === "begin");
+}
+
 var Environment = [{}];
 
 var update = function (env, pairs) {
@@ -89,13 +113,13 @@ var evaluate = function (x) {
         return Environment[lookup(env, x.name)][x.name];
     } else if (! (x instanceof Array)) {
         return x;
-    } else if (x[0].name === "quote") {
+    } else if (isQuote(x)) {
         if (x[1].symbol === true) {
           return x[1].name;
         } else {
           return x[1];
         };
-    } else if (x[0].name === "if") {
+    } else if (isIf(x)) {
         var test = x[1];
         var conseq = x[2];
         var alt = x[3];
@@ -103,19 +127,19 @@ var evaluate = function (x) {
         var val = evaluate((evaluate(test)) ? conseq : alt);
         pop_environment();
         return val;
-    } else if (x[0].name === "set!") {
+    } else if (isSet(x)) {
         var variable = x[1];
         val = evaluate(x[2])
         Environment[lookup(env, variable.name)][variable.name] = val;
         return val;
-    } else if (x[0].name === "define") {
+    } else if (isDef(x)) {
         var variable = x[1];
         push_environment();
         val = evaluate(x[2]);
         pop_environment();
         Environment[env][variable.name] = val;
         return val;
-    } else if (x[0].name === "lambda") {
+    } else if (isLambda(x)) {
         var vars = x[1];
         var expr = x[2]
         return function () {
@@ -127,7 +151,7 @@ var evaluate = function (x) {
           pop_environment();
           return val;
         };
-    } else if (x[0].name === "begin") {
+    } else if (isBegin(x)) {
         push_environment();
         var i = 1;
         while (i < x.length) {
