@@ -1,5 +1,4 @@
 //todo: 
-//    : (let ((a b) (c d) (e f)) <expr>) -> ((lambda (a c e) <expr>) b d f)
 //    : (let* ((a b) (c d) (e f)) <expr>) -> ((lambda (a) ((lambda (c) ((lambda (e) <expr>) f)) d)) b)
 
 
@@ -52,6 +51,10 @@ var isCond = function (x) {
 
 var isLet = function (x) {
   return (x[0].name === "let");
+}
+
+var isLetStar = function (x) {
+  return (x[0].name === "let*");
 }
 
 var Environment = [{}];
@@ -190,7 +193,7 @@ var evaluate = function (x) {
           var expr = [Symbol("if"), x[1][0], x[1][1], evaluate([Symbol("cond"), x.slice(2)])];
           return evaluate(expr);
         }
-    } else if (isLet(x)) {
+    } else if (isLetStar(x)) {
         if (x[1].length === 1) {
           var expr = [[Symbol("lambda"), [x[1][0][0]], x[2]], x[1][0][1]];
           return evaluate(expr);
@@ -199,6 +202,15 @@ var evaluate = function (x) {
           return evaluate(expr);
         }
         
+    } else if (isLet(x)) {
+        var variables = [];
+        var expr = [[Symbol("lambda"), [], x[2]]];
+        for (var i = 0, len = x[1].length; i < len; i++) {
+          variables[i] = x[1][i][0];
+          expr.push(x[1][i][1]);
+        }
+        expr[0][1] = variables;
+        return evaluate(expr);
     } else {
         var exps = [];
         push_environment();
