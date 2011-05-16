@@ -50,67 +50,6 @@ var zip = function (keys, values) {
   return zipped;
 }
 
-var primitive_add = function () {
-  var i = arguments[0];
-  for (var j = 1, len = arguments.length; j < len; j++) {
-    i = i + arguments[j];
-  };
-  return i;
-}
-
-var primitive_sub = function () {
-  var i = arguments[0];
-  for (var j = 1, len = arguments.length; j < len; j++) {
-    i = i - arguments[j];
-  };
-  return i;
-}
-
-var primitive_mult = function () {
-  var i = arguments[0];
-  for (var j = 1, len = arguments.length; j < len; j++) {
-    i = i * arguments[j];
-  };
-  return i;
-}
-
-var primitive_div = function () {
-  var i = arguments[0];
-  for (var j = 1, len = arguments.length; j < len; j++) {
-    i = i / arguments[j];
-  };
-  return i;
-}
-
-var primitive_gt = function (x, y) {
-  return (x > y);
-}
-
-var primitive_lt = function (x, y) {
-  return (x < y);
-}
-
-var primitive_eq = function (x, y) {
-  return (x === y);
-}
-
-var pi = function () {
-  return Math.PI;
-}
-
-var bind_primitives = function() {
-  update(0, {
-   "+": primitive_add,
-   "-": primitive_sub,
-   "*": primitive_mult,
-   "/": primitive_div,
-   ">": primitive_gt,
-   "<": primitive_lt,
-   "pi": pi,
-   "eq": primitive_eq
-  });
-}
-
 bind_primitives();
 
 var to_sexp = function (x) {
