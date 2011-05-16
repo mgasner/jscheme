@@ -1,5 +1,4 @@
 //todo: 
-//    :  (cond ((a b) (c d) (e f) (else g))) -> (if a b (if c d (if e f (if #t g))))
 //    : (let ((a b) (c d) (e f)) <expr>) -> ((lambda (a c e) <expr>) b d f)
 //    : (let* ((a b) (c d) (e f)) <expr>) -> ((lambda (a) ((lambda (c) ((lambda (e) <expr>) f)) d)) b)
 
@@ -45,6 +44,10 @@ var isLambda = function (x) {
 
 var isBegin = function (x) {
   return (x[0].name === "begin");
+}
+
+var isCond = function (x) {
+  return (x[0].name === "cond");
 }
 
 var Environment = [{}];
@@ -176,6 +179,14 @@ var evaluate = function (x) {
         };
         pop_environment();
         return val;
+    } else if (isCond(x)) {
+        if (x[2][0].name === "else") {
+          var expr = [Symbol("if"), x[1][0], x[1][1], x[2][1]];
+          return evaluate(expr);
+        } else {
+          var expr = [Symbol("if"), x[1][0], x[1][1], evaluate([Symbol("cond"), x.slice(2)])];
+          return evaluate(expr);
+        }
     } else {
         var exps = [];
         push_environment();

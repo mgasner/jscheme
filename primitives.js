@@ -107,7 +107,9 @@ var bind_primitives = function() {
    "remainder":   primitive_remainder,
    "or":          primitive_or,
    "and":         primitive_and,
-   "not":         primitive_not
+   "not":         primitive_not,
+   "#f":          false,
+   "#t":          true
   });
   
   evaluate(read_from(tokenize("(define zero? (lambda (x) (eq x 0)))")));
