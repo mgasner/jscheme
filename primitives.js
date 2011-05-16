@@ -7,11 +7,15 @@ var primitive_add = function () {
 }
 
 var primitive_sub = function () {
-  var i = arguments[0];
-  for (var j = 1, len = arguments.length; j < len; j++) {
-    i = i - arguments[j];
-  };
-  return i;
+  if (arguments.length > 1) {
+    var i = arguments[0];
+    for (var j = 1, len = arguments.length; j < len; j++) {
+      i = i - arguments[j];
+    };
+    return i;
+  } else {
+    return -arguments[0];
+  }
 }
 
 var primitive_mult = function () {
@@ -109,5 +113,5 @@ var bind_primitives = function() {
   evaluate(read_from(tokenize("(define zero? (lambda (x) (eq x 0)))")));
   evaluate(read_from(tokenize("(define positive? (lambda (x) (> x 0)))")));
   evaluate(read_from(tokenize("(define negative? (lambda (x) (< x 0)))")));
-  evaluate(read_from(tokenize("(define >= (lambda (x y) (or (> x y) (eq x y))))")));
+  evaluate(read_from(tokenize("(define >= (lambda (x y) (or (> x y) (eq x y))))")))
 }

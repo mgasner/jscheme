@@ -1,3 +1,9 @@
+//todo: 
+//    :  (cond ((a b) (c d) (e f) (else g))) -> (if a b (if c d (if e f (if #t g))))
+//    : (let ((a b) (c d) (e f)) <expr>) -> ((lambda (a c e) <expr>) b d f)
+//    : (let* ((a b) (c d) (e f)) <expr>) -> ((lambda (a) ((lambda (c) ((lambda (e) <expr>) f)) d)) b)
+
+
 var env = 0,
     verbosity = 0;
     
@@ -133,12 +139,23 @@ var evaluate = function (x) {
         Environment[lookup(env, variable.name)][variable.name] = val;
         return val;
     } else if (isDef(x)) {
-        var variable = x[1];
-        push_environment();
-        val = evaluate(x[2]);
-        pop_environment();
-        Environment[env][variable.name] = val;
-        return val;
+        if (! (x[1] instanceof Array)) {
+          var variable = x[1];
+          push_environment();
+          var val = evaluate(x[2]);
+          pop_environment();
+          Environment[env][variable.name] = val;
+          return val;
+        } else {
+          var variable = x[1].shift()
+          var expr = [Symbol("lambda"), x[1], x[2]]
+          console.log(to_sexp(expr));
+          push_environment();
+          var val = evaluate(expr);
+          pop_environment();
+          Environment[env][variable.name] = val;
+          return val;
+        }
     } else if (isLambda(x)) {
         var vars = x[1];
         var expr = x[2]
