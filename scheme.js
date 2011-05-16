@@ -9,6 +9,10 @@ var Symbol = function (name) {
   return { symbol: true, name: name };
 }
 
+var isAutoQuoting = function (x) {
+  return (isSymbol(x) || isNumber(x));
+}
+
 var isSymbol = function (x) {
   return x.hasOwnProperty("symbol");
 }
@@ -200,8 +204,7 @@ var evaluate = function (x) {
         } else {
           var expr = [[Symbol("lambda"), [ x[1][0][0] ], [Symbol("let"), x[1].slice(1), x[2]]], x[1][0][1]];
           return evaluate(expr);
-        }
-        
+        }    
     } else if (isLet(x)) {
         var variables = [];
         var expr = [[Symbol("lambda"), [], x[2]]];
@@ -224,6 +227,11 @@ var evaluate = function (x) {
     };
 };
 
+var pretty_print = function (val) {
+  if (isAutoQuoting(val)) {
+    return val;
+  } else return "ok";
+}
 var read = function (s) {
   return read_from(tokenize(s));
 };

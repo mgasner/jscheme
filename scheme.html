@@ -5,7 +5,7 @@
 </head>
 <body>
 <div id="print"></div>
-<input id="repl" type="text" size=100 />
+<input id="repl" type="text" />
 <script type="text/javascript" src="primitives.js"></script>
 <script type="text/javascript" src="scheme.js"></script>
 <script type="text/javascript" src="deps/jquery-1.5.1.js"></script>
@@ -16,7 +16,7 @@ $('#repl').change(
     expr = $('#repl').val();
     $('#print').append('<br /><span style="color: red">' + expr + '</span>');
     var start = new Date();
-    $('#print').append("<br />" + evaluate(read(expr)));
+    $('#print').append("<br />" + pretty_print(evaluate(read(expr))));
     var end = new Date();
     $('#print').append('<br /><span style="font-size: x-small; color: #cccccc">' + (end - start) + '</span>');
   });
