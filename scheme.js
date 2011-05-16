@@ -91,7 +91,7 @@ var evaluate = function (x) {
         return x;
     } else if (x[0].name === "quote") {
         if (x[1].symbol === true) {
-          return x.name;
+          return x[1].name;
         } else {
           return x[1];
         };
