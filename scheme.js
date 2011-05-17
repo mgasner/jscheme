@@ -189,7 +189,8 @@ var evaluate = function (x) {
         push_environment();
         var i = 1;
         while (i < x.length) {
-            var val = evaluate(x[1]);
+            var val = evaluate(x[i]);
+            i++;
         };
         pop_environment();
         return val;
@@ -210,13 +211,26 @@ var evaluate = function (x) {
           return evaluate(expr);
         }    
     } else if (isLet(x)) {
-        var variables = [];
-        var expr = [[Symbol("lambda"), [], x[2]]];
-        for (var i = 0, len = x[1].length; i < len; i++) {
-          variables[i] = x[1][i][0];
-          expr.push(x[1][i][1]);
+        if (! (x[1] instanceof Array)) {
+          var expr = [Symbol("begin"), [], [x[1]]];
+          var defn = [Symbol("define"), x[1], [Symbol("lambda"), [], x[3]]];
+          var vars = [];
+          for (var i = 0, len = x[2].length; i < len; i++) {
+            vars[i] = x[2][i][0];
+            expr[2].push(x[2][i][1]);
+          }
+          defn[2][1] = vars;
+          expr[1] = defn;
+        } else {
+          var variables = [];
+          var expr = [[Symbol("lambda"), [], x[2]]];
+          for (var i = 0, len = x[1].length; i < len; i++) {
+            variables[i] = x[1][i][0];
+            expr.push(x[1][i][1]);
+          }
+          expr[0][1] = variables;
         }
-        expr[0][1] = variables;
+        console.log(to_sexp(expr));
         return evaluate(expr);
     } else {
         var exps = [];
@@ -232,7 +246,6 @@ var evaluate = function (x) {
 };
 
 var pretty_print = function (val) {
-  console.log(val);
   if (typeof val !== "undefined" && (isAutoQuoting(val) || isString(val))) {
     return val;
   } else return "ok";
