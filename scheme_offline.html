@@ -1,0 +1,25 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="scheme.css" />
+</head>
+<body>
+<div id="print"></div><div id="canvas_container"><canvas id="canvas" width="200" height="200"></canvas></div>
+<input id="repl" type="text" />
+<script type="text/javascript" src="primitives.js"></script>
+<script type="text/javascript" src="scheme.js"></script>
+<script type="text/javascript" src="canvas.js"></script>
+<script type="text/javascript" src="deps/jquery-1.5.1.js"></script>
+<script type="text/javascript" src="deps/underscore.js"></script>
+<script type="text/javascript">
+$('#repl').change(
+  function () {
+    expr = $('#repl').val();
+    $('#print').append('<br /><span style="color: red">' + expr + '</span>');
+    var start = new Date();
+    $('#print').append("<br />" + pretty_print(evaluate(read(expr))));
+    var end = new Date();
+    $('#print').append('<br /><span style="font-size: x-small; color: #cccccc">' + (end - start) + '</span>');
+  });
+</script>
+</body>
+</html>
