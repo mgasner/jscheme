@@ -2,4 +2,4 @@ This is an exceedingly naïve "teach yourself to program in fixnum days" kind of
 
 The initial, horrific, fumbling stages have been omitted.
 
-This project is clearly derivative and will be building off of models provided by SICP, Norvig's lis.py, Nils Holm's S9fES, and Abdulaziz Ghuloum's compilers tutorial (to start).
+This project is clearly derivative and will be building off of models provided by SICP, Norvig's lis.py, Nils Holm's S9fES, Dmitri Soshnikov's CoffeeScript metacircular interpreter, and Abdulaziz Ghuloum's compilers tutorial (to start).

@@ -24,6 +24,11 @@
     ctx.fillRect(x, y, w, h);
   }
   
+  var canvas_clearrect = function (id, x, y, w, h) {
+    var ctx = getctx(id);
+    ctx.clearRect(x, y, w, h);
+  }
+  
   var canvas_save = function (id) {
     var ctx = getctx(id);
     ctx.save();
@@ -36,6 +41,7 @@
 
   
   update(0, {
+    "canvas/clearrect": canvas_clearrect,
     "canvas/fillrect": canvas_fillrect,
     "canvas/restore": canvas_restore,
     "canvas/save": canvas_save
