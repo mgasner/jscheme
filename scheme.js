@@ -196,6 +196,7 @@ var evaluate = function (x, env) {
         for (var i = 0, len = vars.length; i < len; i++) {
           vars[i] = vars[i].name;
         };
+        env = env.extend();
         return function () {
           env.update(vars, arguments);
           var val = evaluate(expr, env);
@@ -242,6 +243,8 @@ var evaluate = function (x, env) {
           }
           expr[0][1] = variables;
         }
+        console.log(env.symbols["a"]);
+        console.log(to_sexp(expr));
         return evaluate(expr, env);
     } else {
         var exps = [];
