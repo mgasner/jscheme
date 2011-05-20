@@ -1,3 +1,5 @@
+var nil = {};
+
 var primitive_add = function () {
   var i = arguments[0];
   for (var j = 1, len = arguments.length; j < len; j++) {
@@ -109,7 +111,8 @@ var bind_primitives = function(env) {
    "and":         primitive_and,
    "not":         primitive_not,
    "#f":          false,
-   "#t":          true
+   "#t":          true,
+   "nil":         nil
   });
   
   evaluate(read_from(tokenize("(define zero? (lambda (x) (eq x 0)))")), env);
