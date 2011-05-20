@@ -40,7 +40,7 @@
   }
 
   
-  update(0, {
+  global_env.update({
     "canvas/clearrect": canvas_clearrect,
     "canvas/fillrect": canvas_fillrect,
     "canvas/restore": canvas_restore,

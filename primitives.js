@@ -90,8 +90,8 @@ var pi = function () {
   return Math.PI;
 }
 
-var bind_primitives = function() {
-  update(0, {
+var bind_primitives = function(env) {
+  env.update({
    "+":           primitive_add,
    "-":           primitive_sub,
    "*":           primitive_mult,
@@ -112,8 +112,8 @@ var bind_primitives = function() {
    "#t":          true
   });
   
-  evaluate(read_from(tokenize("(define zero? (lambda (x) (eq x 0)))")));
-  evaluate(read_from(tokenize("(define positive? (lambda (x) (> x 0)))")));
-  evaluate(read_from(tokenize("(define negative? (lambda (x) (< x 0)))")));
-  evaluate(read_from(tokenize("(define >= (lambda (x y) (or (> x y) (eq x y))))")))
+  evaluate(read_from(tokenize("(define zero? (lambda (x) (eq x 0)))")), env);
+  evaluate(read_from(tokenize("(define positive? (lambda (x) (> x 0)))")), env);
+  evaluate(read_from(tokenize("(define negative? (lambda (x) (< x 0)))")), env);
+  evaluate(read_from(tokenize("(define >= (lambda (x y) (or (> x y) (eq x y))))")), env)
 }
