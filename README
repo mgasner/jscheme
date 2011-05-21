@@ -2,4 +2,13 @@ This is an exceedingly naïve "teach yourself to program in fixnum days" kind of
 
 The initial, horrific, fumbling stages have been omitted.
 
-This project is clearly derivative and will be building off of models provided by SICP, Norvig's lis.py, Nils Holm's S9fES, Dmitri Soshnikov's CoffeeScript metacircular interpreter, and Abdulaziz Ghuloum's compilers tutorial (to start).
+This project is clearly derivative and will be building off of models provided by SICP, Norvig's lis.py, Nils Holm's S9fES, Christian Queinnec's Lisp in SMall Pieces, Dmitri Soshnikov's CoffeeScript metacircular interpreter, James Coglan's Heist, and Abdulaziz Ghuloum's compilers tutorial (to start).
+
+We'll aim to support:
+symbols, characters, character strings, lists, numbers (complex, real, rational, integer; exact, inexact), Booleans, vectors, ports, procedures, JavaScript literals
+
+Character literals: #\Z, #\space
+Javascript literals: #<...>#
+Vector literals: #(a b c)
+
+quote, if, set!, lambda:
