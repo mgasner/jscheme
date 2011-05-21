@@ -146,6 +146,13 @@ var isLetStar = function (x) {
   return (x[0].name === "let*");
 }
 
+var isOr = function (x) {
+  return (x[0].name === "or");
+}
+
+var isAnd = function (x) {
+  return (x[0].name === "and");
+}
 
 /*
   Eval
@@ -242,6 +249,20 @@ var evaluate = function (x, env) {
             expr.push(x[1][i][1]);
           }
           expr[0][1] = variables;
+        }
+        return evaluate(expr, env);
+    } else if (isAnd(x)) {
+        if (x.length === 2) {
+          var expr = x[1];
+        } else {
+          var expr = [Symbol("if"), x[1], [Symbol("and")].concat(x.slice(2)), Symbol("#f")];
+        }
+        return evaluate(expr, env);
+    } else if (isOr(x)) {
+        if (x.length === 2) {
+          var expr = x[1];
+        } else {
+          var expr = [Symbol("if"), x[1], Symbol("#t"), [Symbol("or")].concat(x.slice(2))];
         }
         return evaluate(expr, env);
     } else {

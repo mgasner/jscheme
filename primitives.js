@@ -70,20 +70,6 @@ var primitive_remainder = function (x, y) {
   return x % y;
 }
 
-var primitive_or = function () {
-  for (var i = 0, len = arguments.length; i < len; i++) {
-    if (arguments[i]) return true;
-  }
-  return false;
-}
-
-var primitive_and = function () {
-  for (var i = 0, len = arguments.length; i < len; i++) {
-    if (! arguments[i]) return false;
-  }
-  return true;
-}
-
 var primitive_not = function (x) {
   return (! x);
 }
