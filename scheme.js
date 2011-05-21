@@ -243,8 +243,6 @@ var evaluate = function (x, env) {
           }
           expr[0][1] = variables;
         }
-        console.log(env.symbols["a"]);
-        console.log(to_sexp(expr));
         return evaluate(expr, env);
     } else {
         var exps = [];
