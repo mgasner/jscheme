@@ -93,8 +93,6 @@ var bind_primitives = function(env) {
    "eq":          primitive_eq,
    "quotient":    primitive_quotient,
    "remainder":   primitive_remainder,
-   "or":          primitive_or,
-   "and":         primitive_and,
    "not":         primitive_not,
    "#f":          false,
    "#t":          true,
