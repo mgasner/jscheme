@@ -32,6 +32,10 @@ var to_sexp = function (x) {
   }
 }
 
+var first = function (x) { return x[0]; }
+var second = function (x) { return x[1]; }
+var third = function (x) { return x[2]; }
+var fourth = function (x) { return x[3]; }
 
 /*
   Global environment
@@ -168,7 +172,7 @@ var evaluate = function (x, env) {
     } else if (! (x instanceof Array)) {
         return x;
     } else if (isQuote(x)) {
-        if (x[1].symbol === true) {
+        if (isSymbol(x[1])) {
           return x[1].name;
         } else {
           return x[1];
