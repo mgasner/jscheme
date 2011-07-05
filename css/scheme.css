@@ -1,0 +1,14 @@
+body {
+  font-family: 'Inconsolata', 'Helvetica', sans-serif;
+}
+
+#print {
+  width: 700px;
+  border: 1px brown dotted;
+  float: left;
+  margin: 10px;
+}
+#repl {
+  width: 700px;
+  background-color: 'light grey';
+}
