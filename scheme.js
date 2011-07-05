@@ -1,4 +1,24 @@
 /*
+  Tail-call optimization, from
+  http://eriwen.com/javascript/cps-tail-call-elimination/
+                                                         */
+  
+Function.prototype.tail = function() {
+    return [this, arguments];
+}
+
+Function.prototype.tco = function() {
+    var continuation = [this, arguments];
+    var escapeFn = arguments[arguments.length - 1];
+    while (continuation[0] !== escapeFn) {
+        continuation = continuation[0].apply(this, continuation[1]);
+    }
+    return escapeFn.apply(this, continuation[1]);
+}
+
+
+
+/*
   Utility functions
                    */
 
