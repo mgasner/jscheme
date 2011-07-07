@@ -1,19 +1,36 @@
 /*
-  Tail-call optimization, from
+  Changes to Function.prototype to allow tail-call optimization, after
   http://eriwen.com/javascript/cps-tail-call-elimination/
+
+  Example: a continuation-passing fibonacci function.
+
+    function cpsfib(n, prev, cur, continuation) {
+      if (n < 2) {
+        return continuation.tail(cur);
+      }
+      return cpsfib.tail(--n, cur, cur + prev, cpsfib);
+    }
+
+    cpsfib.tco(1000, 0, 1, identity);
+    
+    [cpsfib, [1000, 0, 1, identity]]
+    [cpsFib, [1000, 0, 1, identity]]
+    [cpsFib, [999, 1, 1, identity]]
+    [cpsFib, [3, 2.686e+208, 4.3467e+208, identity]]
+    [identity, 4.34673e+208]
                                                          */
   
 Function.prototype.tail = function() {
-    return [this, arguments];
+  return [this, arguments];
 }
 
 Function.prototype.tco = function() {
-    var continuation = [this, arguments];
-    var escapeFn = arguments[arguments.length - 1];
-    while (continuation[0] !== escapeFn) {
-        continuation = continuation[0].apply(this, continuation[1]);
-    }
-    return escapeFn.apply(this, continuation[1]);
+  var continuation = [this, arguments];
+  var escapeFn = arguments[arguments.length - 1];
+  while (continuation[0] !== escapeFn) {
+    continuation = continuation[0].apply(this, continuation[1]);
+  }
+  return escapeFn.apply(this, continuation[1]);
 }
 
 
