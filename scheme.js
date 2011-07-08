@@ -4,9 +4,9 @@
 
   Example: a continuation-passing fibonacci function.
 
-    function cpsfib(n, prev, cur, continuation) {
+    function cpsfib(n, prev, cur, escape) {
       if (n < 2) {
-        return continuation.tail(cur);
+        return escape.tail(cur);
       }
       return cpsfib.tail(--n, cur, cur + prev, cpsfib);
     }
@@ -28,7 +28,7 @@ Function.prototype.tco = function() {
   var continuation = [this, arguments];
   var escapeFn = arguments[arguments.length - 1];
   while (continuation[0] !== escapeFn) {
-    continuation = continuation[0].apply(this, continuation[1]);
+    continuation = continuation[0].pply(this, continuation[1]);
   }
   return escapeFn.apply(this, continuation[1]);
 }
