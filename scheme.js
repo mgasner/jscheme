@@ -38,19 +38,6 @@ Function.prototype.tco = function() {
 /*
   Utility functions
                    */
-
-// zips 2 arrays of keys and values into a single new object                   
-var zip = function (keys, values) {
-  if (keys.length !== values.length) throw new Error("Zip called with unequal numbers of keys and values.");
-  
-  zipped = {};
-  for (var i = 0, len = keys.length; i < len; i++) {
-    zipped[keys[i]] = values[i];
-  }
-  
-  return zipped;
-}
-
 // formats an array as an S-expression
 var to_sexp = function (x) {
   if (! (x instanceof Array)) {
@@ -68,11 +55,6 @@ var to_sexp = function (x) {
     return sexp;
   }
 }
-
-var first = function (x) { return x[0]; }
-var second = function (x) { return x[1]; }
-var third = function (x) { return x[2]; }
-var fourth = function (x) { return x[3]; }
 
 /*
   Global environment
