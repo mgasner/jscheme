@@ -12,3 +12,8 @@ var zip_to_object = function (keys, values) {
   }
   return zipped;
 }
+
+_.mixin({ second: second,
+	  third: third,
+	  fourth: fourth,
+	  zip_to_object: zip_to_object });
